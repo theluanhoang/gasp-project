@@ -46,9 +46,6 @@ ScrollTrigger.create({
     trigger: content,
     pin: true,
     start: 'center center',
-    start: () => {
-        return window.innerWidth > 996 ? 'center center' : 'top top';
-    },
     end: () => {
         return window.innerWidth > 996 ? `+=${pathLength} bottom` : `+=${pathLength * 3} bottom`;
     },
@@ -133,6 +130,26 @@ dots.forEach((dot, index) => {
     });
 });
 
+icons.forEach((icon, index) => {
+    icon.addEventListener('click', () => {
+        currentDotIndex = index;
+        activePath.style.strokeDashoffset = pathLength - stopPoints[currentDotIndex]
+        updateElements(currentDotIndex);
+        const scrollY = window.scrollY;
+        if (scrollOfDots.has(currentDotIndex) !== true) {
+            scrollOfDots.set(currentDotIndex, scrollY);
+        }
+        window.scroll(0, scrollOfDots.get(currentDotIndex))
+        gsap.to(content, {
+            scrollTo: {
+                y: scrollOfDots.get(currentDotIndex),
+                autoKill: false
+            },
+            duration: 1
+        });
+    });
+});
+
 const dotDistances = dotCoordinates.map((coord, index) => {
     const point = activePath.getPointAtLength(index * (pathLength / (dots.length - 1)));
     const distance = Math.sqrt(
@@ -156,7 +173,6 @@ function startAnimation() {
             currentDotIndex = Math.max(currentDotIndex - 1, 0);
         }
         const scrollY = window.scrollY;
-        console.log("scrollY:::", scrollY);
         if (scrollOfDots.has(currentDotIndex) !== true) {
             scrollOfDots.set(currentDotIndex, scrollY);
         }
@@ -241,5 +257,4 @@ document.body.ontouchend = function(e){
 
 document.body.ontouchmove = function(e){
     isTouchMove = true;
-    console.log("move");
 }

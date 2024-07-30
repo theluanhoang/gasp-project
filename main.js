@@ -132,6 +132,7 @@ dots.forEach((dot, index) => {
 
 icons.forEach((icon, index) => {
     icon.addEventListener('click', () => {
+        icon.style.cursor = 'pointer';
         currentDotIndex = index;
         activePath.style.strokeDashoffset = pathLength - stopPoints[currentDotIndex]
         updateElements(currentDotIndex);

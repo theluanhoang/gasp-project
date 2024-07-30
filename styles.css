@@ -183,6 +183,7 @@ body {
     }
     .svg-progress {
         height: 100vh;
+        padding: 50px 0;
     }
     .procedure {
         max-width: 100%;

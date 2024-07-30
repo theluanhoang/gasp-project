@@ -202,40 +202,41 @@ function updateElements(currentDotIndex) {
 }
 
 window.addEventListener('wheel', startAnimation);
+window.addEventListener('touchmove', startAnimation);
 
-document.body.ontouchstart = function(e){
-    touchPos = e.changedTouches[0].clientY;
-}
+// document.body.ontouchstart = function(e){
+//     touchPos = e.changedTouches[0].clientY;
+// }
 
-document.body.ontouchend = function(e){
-    if (isTouchMove === true) {
-        let newTouchPos = e.changedTouches[0].clientY;
-        const scrollY = Math.abs(newTouchPos - touchPos);
-        if (scrollY > 300) {
-            if(newTouchPos > touchPos) {
-                currentDotIndex = Math.max(currentDotIndex - 1, 0);
-            }
-            if(newTouchPos < touchPos) {
-                currentDotIndex = Math.min(currentDotIndex + 1, 10);
-            }
+// document.body.ontouchend = function(e){
+//     if (isTouchMove === true) {
+//         let newTouchPos = e.changedTouches[0].clientY;
+//         const scrollY = Math.abs(newTouchPos - touchPos);
+//         if (scrollY > 300) {
+//             if(newTouchPos > touchPos) {
+//                 currentDotIndex = Math.max(currentDotIndex - 1, 0);
+//             }
+//             if(newTouchPos < touchPos) {
+//                 currentDotIndex = Math.min(currentDotIndex + 1, 10);
+//             }
 
-            if (scrollOfDots.has(currentDotIndex) !== true) {
-                scrollOfDots.set(currentDotIndex, scrollY);
-            }
-            gsap.to(activePath, {
-                strokeDashoffset: pathLength - stopPoints[currentDotIndex],
-                duration: 0.5,
-            });
+//             if (scrollOfDots.has(currentDotIndex) !== true) {
+//                 scrollOfDots.set(currentDotIndex, scrollY);
+//             }
+//             gsap.to(activePath, {
+//                 strokeDashoffset: pathLength - stopPoints[currentDotIndex],
+//                 duration: 0.5,
+//             });
 
-            updateElements(currentDotIndex);
-        }
+//             updateElements(currentDotIndex);
+//         }
 
-    }
-    isTouchMove = false;
+//     }
+//     isTouchMove = false;
 
-}
+// }
 
-document.body.ontouchmove = function(e){
-    isTouchMove = true;
-    console.log("move");
-}
+// document.body.ontouchmove = function(e){
+//     isTouchMove = true;
+//     console.log("move");
+// }
